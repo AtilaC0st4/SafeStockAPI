@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeStockAPI", "SafeStockAPI\SafeStockAPI.csproj", "{1DC05C4C-3EC4-42E4-8B46-7379419893F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DC05C4C-3EC4-42E4-8B46-7379419893F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC05C4C-3EC4-42E4-8B46-7379419893F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC05C4C-3EC4-42E4-8B46-7379419893F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC05C4C-3EC4-42E4-8B46-7379419893F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61650C9F-FB24-4FFD-B189-8E8A094A62B5}
+	EndGlobalSection
+EndGlobal
