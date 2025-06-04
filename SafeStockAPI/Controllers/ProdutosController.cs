@@ -118,5 +118,30 @@ namespace SafeStockAPI.Controllers
 
             return NoContent();
         }
+
+        // DELETE: api/produtos/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduto(int id)
+        {
+            var produto = await _context.Produtos.FindAsync(id);
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            // Primeiro, removemos todas as movimentações relacionadas ao produto
+            var movimentacoes = await _context.Movimentacoes
+                .Where(m => m.ProdutoId == id)
+                .ToListAsync();
+
+            _context.Movimentacoes.RemoveRange(movimentacoes);
+
+            // Depois removemos o produto
+            _context.Produtos.Remove(produto);
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

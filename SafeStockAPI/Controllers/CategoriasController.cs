@@ -71,6 +71,48 @@ namespace SafeStockAPI.Controllers
                 });
         }
 
+        // PUT: api/categorias/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutCategoria(int id, AtualizarCategoriaDTO dto)
+        {
+            if (id != dto.Id)
+            {
+                return BadRequest("ID da rota não corresponde ao ID do objeto");
+            }
+
+            var categoria = await _context.Categorias.FindAsync(id);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            // Atualiza apenas o nome da categoria
+            categoria.Nome = dto.Nome;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CategoriaExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool CategoriaExists(int id)
+        {
+            return _context.Categorias.Any(e => e.Id == id);
+        }
+
         // DELETE: api/categorias/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategoria(int id)

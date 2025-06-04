@@ -14,3 +14,9 @@ public class CriarCategoriaDTO
     [MaxLength(100, ErrorMessage = "Máximo de 100 caracteres")]
     public string Nome { get; set; }
 }
+
+public class AtualizarCategoriaDTO
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+}

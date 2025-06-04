@@ -14,6 +14,12 @@ namespace SafeStockAPI.DTOs
         public DateTime Data { get; set; }
     }
 
+    public class AtualizarMovimentacaoDTO
+    {
+        public int Id { get; set; }
+        public int Quantidade { get; set; }
+    }
+
     public class RegistrarMovimentacaoDTO
     {
         [Required(ErrorMessage = "ID do produto é obrigatório")]

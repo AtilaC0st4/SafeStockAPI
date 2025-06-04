@@ -69,5 +69,90 @@ namespace SafeStockAPI.Controllers
 
             return CreatedAtAction("GetMovimentacao", new { id = movimentacao.Id }, movimentacao);
         }
+
+        // PUT: api/movimentacoes/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutMovimentacao(int id, AtualizarMovimentacaoDTO dto)
+        {
+            if (id != dto.Id)
+            {
+                return BadRequest("ID da rota não corresponde ao ID da movimentação");
+            }
+
+            var movimentacao = await _context.Movimentacoes
+                .Include(m => m.Produto)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (movimentacao == null)
+            {
+                return NotFound("Movimentação não encontrada");
+            }
+
+            var produto = movimentacao.Produto;
+            var diferencaQuantidade = dto.Quantidade - movimentacao.Quantidade;
+
+            // Validação para saída
+            if (movimentacao.Tipo == "SAIDA" && produto.Quantidade < diferencaQuantidade)
+            {
+                return BadRequest("Ajuste inválido: estoque ficaria negativo");
+            }
+
+            // Reverte a movimentação original
+            produto.Quantidade += movimentacao.Tipo == "ENTRADA" ? -movimentacao.Quantidade : movimentacao.Quantidade;
+
+            // Aplica a nova movimentação
+            produto.Quantidade += movimentacao.Tipo == "ENTRADA" ? dto.Quantidade : -dto.Quantidade;
+
+            // Atualiza os dados da movimentação
+            movimentacao.Quantidade = dto.Quantidade;
+            movimentacao.Data = DateTime.UtcNow; // Atualiza a data para agora
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MovimentacaoExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/movimentacoes/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMovimentacao(int id)
+        {
+            var movimentacao = await _context.Movimentacoes
+                .Include(m => m.Produto)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (movimentacao == null)
+            {
+                return NotFound();
+            }
+
+            var produto = movimentacao.Produto;
+
+            // Reverte o estoque
+            produto.Quantidade += movimentacao.Tipo == "ENTRADA" ? -movimentacao.Quantidade : movimentacao.Quantidade;
+
+            _context.Movimentacoes.Remove(movimentacao);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool MovimentacaoExists(int id)
+        {
+            return _context.Movimentacoes.Any(e => e.Id == id);
+        }
     }
 }
