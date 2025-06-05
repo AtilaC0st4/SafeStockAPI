@@ -23,3 +23,13 @@ public class CriarProdutoDTO
     [Required(ErrorMessage = "Categoria é obrigatória")]
     public int CategoriaId { get; set; }
 }
+
+// SafeStockAPI/DTOs/RetiradaProdutoDTO.cs
+namespace SafeStockAPI.DTOs
+{
+    public class RetiradaProdutoDTO
+    {
+        public int ProdutoId { get; set; }
+        public int Quantidade { get; set; }
+    }
+}

@@ -30,7 +30,7 @@ namespace SafeStockAPI.Controllers
                 .ToListAsync();
         }
 
-        // GET: api/categorias/5
+        // GET: api/categorias/
         [HttpGet("{id}")]
         public async Task<ActionResult<CategoriaDTO>> GetCategoria(int id)
         {
@@ -50,6 +50,8 @@ namespace SafeStockAPI.Controllers
                 TotalProdutos = categoria.Produtos.Count
             };
         }
+
+
 
         // POST: api/categorias
         [HttpPost]
