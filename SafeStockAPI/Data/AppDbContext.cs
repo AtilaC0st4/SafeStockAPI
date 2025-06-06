@@ -11,7 +11,7 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configurações específicas para Oracle
+        
         modelBuilder.Entity<Produto>(entity =>
         {
             entity.ToTable("PRODUTOS");

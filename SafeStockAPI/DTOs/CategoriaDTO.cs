@@ -5,7 +5,7 @@ public class CategoriaDTO
 {
     public int Id { get; set; }
     public string Nome { get; set; }
-    public int TotalProdutos { get; set; } // Contagem de produtos na categoria
+    public int TotalProdutos { get; set; } 
 }
 
 public class CriarCategoriaDTO

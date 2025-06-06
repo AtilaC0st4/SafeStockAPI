@@ -15,7 +15,7 @@ namespace SafeStockAPI.Models
         [Column("NOME", TypeName = "NVARCHAR2(100)")]
         public string Nome { get; set; }
 
-        // Relação com produtos
+        
         public ICollection<Produto> Produtos { get; set; }
     }
 }

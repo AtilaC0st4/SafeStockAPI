@@ -10,7 +10,7 @@ namespace SafeStockAPI.DTOs
         public int ProdutoId { get; set; }
         public string ProdutoNome { get; set; }
         public int Quantidade { get; set; }
-        public string Tipo { get; set; } // "ENTRADA" ou "SAIDA"
+        public string Tipo { get; set; } 
         public DateTime Data { get; set; }
     }
 

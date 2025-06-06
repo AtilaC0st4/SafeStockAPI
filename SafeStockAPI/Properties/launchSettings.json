@@ -13,7 +13,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "",
       "applicationUrl": "http://0.0.0.0:5194", // Alterado para 0.0.0.0
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
@@ -24,7 +24,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "",
       "applicationUrl": "https://0.0.0.0:7093;http://0.0.0.0:5194", // Alterado para 0.0.0.0
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
@@ -34,7 +34,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "http://localhost:36144;https://localhost:44383" // Adicionado

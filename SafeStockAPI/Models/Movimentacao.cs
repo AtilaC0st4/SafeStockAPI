@@ -22,7 +22,7 @@ namespace SafeStockAPI.Models
 
         [Required]
         [Column("TIPO", TypeName = "NVARCHAR2(10)")]
-        public string Tipo { get; set; } // "ENTRADA" ou "SAIDA"
+        public string Tipo { get; set; } 
 
         [Column("DATA")]
         public DateTime Data { get; set; } = DateTime.Now;

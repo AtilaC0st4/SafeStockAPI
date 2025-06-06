@@ -18,7 +18,7 @@ namespace SafeStockAPI.Models
         [Column("QUANTIDADE")]
         public int Quantidade { get; set; } = 0;
 
-        [NotMapped] // Não persiste no banco (é calculado)
+        [NotMapped] 
         public string Status => Quantidade switch
         {
             > 10 => "ideal",
@@ -26,7 +26,7 @@ namespace SafeStockAPI.Models
             _ => "baixo"
         };
 
-        // Chave estrangeira
+        
         [Column("CATEGORIA_ID")]
         public int CategoriaId { get; set; }
 

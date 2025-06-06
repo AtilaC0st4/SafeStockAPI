@@ -14,6 +14,6 @@
         public string Categoria { get; set; }
         public int Quantidade { get; set; }
         public string Status { get; set; }
-        public string CorStatus { get; set; } // "red", "yellow", "green"
+        public string CorStatus { get; set; } 
     }
 }

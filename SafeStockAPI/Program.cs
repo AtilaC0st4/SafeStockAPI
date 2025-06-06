@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using SafeStockAPI.Services; // Adicione este using
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseOracle(connectionString, oracleOptions =>
     {
         oracleOptions.CommandTimeout(180);
-       
     });
 });
 
@@ -31,7 +31,12 @@ builder.Services.AddCors(options =>
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
-// Configuração dos serviços
+// Configuração dos serviços de Machine Learning
+builder.Services.AddSingleton<MLPriorityService>(); // Adicione esta linha
+// OU, se preferir usar interface:
+// builder.Services.AddScoped<IMLPriorityService, MLPriorityService>();
+
+// Configuração dos controllers
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -47,7 +52,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "SafeStockAPI",
         Version = "v1",
-        Description = "API para gerenciamento de estoque",
+        Description = "API para gerenciamento de estoque com ML",
         Contact = new OpenApiContact
         {
             Name = "Equipe de Suporte",
@@ -71,9 +76,6 @@ if (app.Environment.IsDevelopment())
     });
     app.UseDeveloperExceptionPage();
 }
-
-// Comente durante desenvolvimento se estiver tendo problemas
-// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.MapControllers();

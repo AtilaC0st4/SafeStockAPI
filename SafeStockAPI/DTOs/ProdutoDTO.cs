@@ -24,7 +24,7 @@ public class CriarProdutoDTO
     public int CategoriaId { get; set; }
 }
 
-// SafeStockAPI/DTOs/RetiradaProdutoDTO.cs
+
 namespace SafeStockAPI.DTOs
 {
     public class RetiradaProdutoDTO
