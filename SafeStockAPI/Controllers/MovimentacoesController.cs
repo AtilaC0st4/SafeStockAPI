@@ -5,6 +5,9 @@ using SafeStockAPI.Models;
 
 namespace SafeStockAPI.Controllers
 {
+    /// <summary>
+    /// Controller para gerenciar movimentações de estoque
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class MovimentacoesController : ControllerBase
@@ -16,7 +19,11 @@ namespace SafeStockAPI.Controllers
             _context = context;
         }
 
-        // GET: api/movimentacoes?produtoId=5
+        /// <summary>
+        /// Obtém todas as movimentações ou filtra por produto
+        /// </summary>
+        /// <param name="produtoId">ID do produto para filtrar (opcional)</param>
+        /// <returns>Lista de movimentações</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovimentacaoDTO>>> GetMovimentacoes(
             [FromQuery] int? produtoId = null)
@@ -42,8 +49,18 @@ namespace SafeStockAPI.Controllers
                 .ToListAsync();
         }
 
-        // POST: api/movimentacoes
+        /// <summary>
+        /// Cria uma nova movimentação de estoque
+        /// </summary>
+        /// <param name="dto">Dados da movimentação</param>
+        /// <returns>A movimentação criada</returns>
+        /// <response code="201">Retorna a movimentação criada</response>
+        /// <response code="400">Se os dados forem inválidos ou estoque insuficiente</response>
+        /// <response code="404">Se o produto não for encontrado</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Movimentacao>> PostMovimentacao(
             RegistrarMovimentacaoDTO dto)
         {
@@ -70,8 +87,19 @@ namespace SafeStockAPI.Controllers
             return CreatedAtAction("GetMovimentacao", new { id = movimentacao.Id }, movimentacao);
         }
 
-        // PUT: api/movimentacoes/5
+        /// <summary>
+        /// Atualiza uma movimentação existente
+        /// </summary>
+        /// <param name="id">ID da movimentação</param>
+        /// <param name="dto">Novos dados da movimentação</param>
+        /// <returns>Nenhum conteúdo</returns>
+        /// <response code="204">Se a atualização for bem-sucedida</response>
+        /// <response code="400">Se os dados forem inválidos ou estoque insuficiente</response>
+        /// <response code="404">Se a movimentação ou produto não for encontrado</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutMovimentacao(int id, AtualizarMovimentacaoDTO dto)
         {
             if (id != dto.Id)
@@ -126,8 +154,16 @@ namespace SafeStockAPI.Controllers
             return NoContent();
         }
 
-        // DELETE: api/movimentacoes/5
+        /// <summary>
+        /// Remove uma movimentação
+        /// </summary>
+        /// <param name="id">ID da movimentação a ser removida</param>
+        /// <returns>Nenhum conteúdo</returns>
+        /// <response code="204">Se a remoção for bem-sucedida</response>
+        /// <response code="404">Se a movimentação não for encontrada</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteMovimentacao(int id)
         {
             var movimentacao = await _context.Movimentacoes
